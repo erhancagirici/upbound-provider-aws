@@ -1,5 +1,5 @@
 # Project Setup
-PROJECT_NAME := platform-ref-aws-e2e
+PROJECT_NAME := providerconfig-aws-e2e-test
 PROJECT_REPO := github.com/upbound/provider-upjet-aws
 
 # NOTE(hasheddan): the platform is insignificant here as Configuration package

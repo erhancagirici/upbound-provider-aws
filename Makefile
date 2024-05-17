@@ -213,7 +213,7 @@ uptest: $(UPTEST) $(KUBECTL) $(KUTTL)
 # It first builds and publishes the
 # provider-family-aws, provider-aws-ec2 and provider-aws-rds.
 # Then triggers the e2e provider config tests via `make`,
-# which resides in the `e2e/platform-ref-aws-e2e-test` directory
+# which resides in the `e2e/providerconfig-aws-e2e-test` directory
 #
 # For the e2e test, an EKS cluster is created and some demo resources are
 # created with different provider configs. The demo resources are from
@@ -232,7 +232,7 @@ providerconfig-e2e:
 	AWS_EC2_PACKAGE_IMAGE="$(XPKG_REG_ORGS)/provider-aws-ec2:$(VERSION)" \
 	AWS_RDS_PACKAGE_IMAGE="$(XPKG_REG_ORGS)/provider-aws-rds:$(VERSION)" \
 	TARGET_CROSSPLANE_VERSION="1.15.2" \
-		$(MAKE) -C e2e/platform-ref-aws-e2e-test e2e
+		$(MAKE) -C e2e/providerconfig-aws-e2e-test e2e
 
 uptest-local:
 	@$(WARN) "this target is deprecated, please use 'make uptest' instead"
