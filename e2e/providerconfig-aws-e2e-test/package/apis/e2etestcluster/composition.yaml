@@ -870,7 +870,7 @@ spec:
                 name: webidentity-with-fs-chain-config
                 labels:
                   component-type: aws-provider-config
-                  component: aws-webidentity-fs-config
+                  component: aws-webidentity-fs-chain-config
               spec:
                 forProvider:
                   manifest:
@@ -1189,6 +1189,29 @@ spec:
                   kind: XIRSA
                   resourceSelector:
                     matchControllerRef: true
+                    matchLabels:
+                      component: irsa-bundle
+                of:
+                  apiVersion: aws.platform.upbound.io/v1alpha1
+                  kind: XEKS
+                  resourceSelector:
+                    matchControllerRef: true
+            readinessChecks:
+              - type: None
+
+          # pseudo-XIRSA for WebIdentity uses XEKS
+          - name: usageXEksByPseudoXIRSA
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: aws.platform.upbound.io/v1alpha1
+                  kind: XIRSA
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: webidentity-bundle
                 of:
                   apiVersion: aws.platform.upbound.io/v1alpha1
                   kind: XEKS
@@ -1402,5 +1425,423 @@ spec:
                     matchLabels:
                       component: webidentity-runtime-config
 
+            readinessChecks:
+              - type: None
+
+          ### AWS Providers depend on AWS Family Provider
+          # AWS EC2 Provider depends on AWS Family Provider
+          - name: usageFamilyProviderByEC2Provider
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-provider-ec2
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-family-provider
+
+            readinessChecks:
+              - type: None
+
+          # AWS RDS Provider depends on AWS Family Provider
+          - name: usageFamilyProviderByRDSProvider
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-provider-rds
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-family-provider
+
+            readinessChecks:
+              - type: None
+
+          ####################################################
+          ### Provider configs depend on AWS Family Provider #
+          ####################################################
+          # IRSA provider config depend on Family Provider
+          - name: usageFamilyProviderByIRSAProviderConfig
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-irsa-provider-config
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-family-provider
+            readinessChecks:
+              - type: None
+
+          # IRSA with Chain
+          - name: usageFamilyProviderByIRSAChainProviderConfig
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-irsa-chain-provider-config
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-family-provider
+            readinessChecks:
+              - type: None
+
+          # Legacy WebIdentity
+          - name: usageFamilyProviderByLegacyWebIdentityProviderConfig
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-webidentity-legacy-config
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-family-provider
+            readinessChecks:
+              - type: None
+
+          # WebIdentity with token at FS
+          - name: usageFamilyProviderByWebIdentityFSProviderConfig
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-webidentity-fs-config
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-family-provider
+            readinessChecks:
+              - type: None
+
+          # WebIdentity with token at Secret
+          - name: usageFamilyProviderByWebIdentitySecretProviderConfig
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-webidentity-secret-config
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-family-provider
+            readinessChecks:
+              - type: None
+
+          # WebIdentity with token at FS with Chain
+          - name: usageFamilyProviderByWebIdentityFSChainProviderConfig
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-webidentity-fs-chain-config
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-family-provider
+            readinessChecks:
+              - type: None
+
+          #################
+          ### MR Usages of Providers ###
+          #################
+
+          - name: usageEC2ProviderByDemoVPC
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-vpc
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-provider-ec2
+            readinessChecks:
+              - type: None
+
+          - name: usageEC2ProviderByDemoVpcIrsaChain
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-vpc-irsa-chain
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-provider-ec2
+            readinessChecks:
+              - type: None
+
+          - name: usageEC2ProviderByDemoVpcLegacyWebID
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-vpc-legacy-webid
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-provider-ec2
+            readinessChecks:
+              - type: None
+
+          - name: usageRDSProviderByPgWebIdFsMR
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-pg-webidfs
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-provider-rds
+            readinessChecks:
+              - type: None
+
+          - name: usageRDSProviderByPgWebIdFsMR
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-pg-webidfs-chain
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-provider-rds
+            readinessChecks:
+              - type: None
+
+          #################
+          ### MR Usages of ProviderConfigs ###
+          #################
+
+          - name: usageIrsaProviderConfigByDemoVPC
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-vpc
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-irsa-provider-config
+            readinessChecks:
+              - type: None
+
+          - name: usageIrsaChainByDemoVpcIrsaChain
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-vpc-irsa-chain
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-irsa-chain-provider-config
+            readinessChecks:
+              - type: None
+
+          - name: usageLegacyWebIdentityProviderConfigByDemoVpc
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-vpc-legacy-webid
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-webidentity-legacy-config
+            readinessChecks:
+              - type: None
+
+          - name: usageWebIdentityFsProviderConfigByPgMR
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-pg-webidfs
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-webidentity-fs-config
+            readinessChecks:
+              - type: None
+
+          - name: usageWebIdentityFsChainProviderConfigByPgMR
+            base:
+              apiVersion: apiextensions.crossplane.io/v1alpha1
+              kind: Usage
+              spec:
+                by:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: demo-pg-webidfs-chain
+                of:
+                  apiVersion: kubernetes.crossplane.io/v1alpha2
+                  kind: Object
+                  resourceSelector:
+                    matchControllerRef: true
+                    matchLabels:
+                      component: aws-webidentity-fs-chain-config
             readinessChecks:
               - type: None
