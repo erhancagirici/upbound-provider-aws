@@ -1165,6 +1165,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: aws.platform.upbound.io/v1alpha1
                   kind: XEKS
@@ -1184,6 +1185,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: aws.platform.upbound.io/v1alpha1
                   kind: XIRSA
@@ -1205,6 +1207,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: aws.platform.upbound.io/v1alpha1
                   kind: XIRSA
@@ -1226,6 +1229,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: helm.crossplane.io/v1beta1
                   kind: Release
@@ -1246,6 +1250,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1269,6 +1274,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1292,6 +1298,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1315,6 +1322,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1338,6 +1346,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1363,6 +1372,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1386,6 +1396,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1410,6 +1421,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1435,6 +1447,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1459,6 +1472,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1486,6 +1500,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1509,6 +1524,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1532,6 +1548,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1555,6 +1572,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1578,6 +1596,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1601,6 +1620,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1627,6 +1647,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1649,6 +1670,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1671,6 +1693,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1693,6 +1716,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1715,6 +1739,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1741,6 +1766,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1763,6 +1789,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1785,6 +1812,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1807,6 +1835,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
@@ -1829,6 +1858,7 @@ spec:
               apiVersion: apiextensions.crossplane.io/v1alpha1
               kind: Usage
               spec:
+                replayDeletion: true
                 by:
                   apiVersion: kubernetes.crossplane.io/v1alpha2
                   kind: Object
