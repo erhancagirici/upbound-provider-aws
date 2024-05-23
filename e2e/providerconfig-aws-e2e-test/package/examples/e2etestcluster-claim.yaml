@@ -11,7 +11,8 @@ spec:
     version: "1.28"
     iam:
       # replace with your custom roleArn that will administer the EKS cluster:
-      roleArn: "arn:aws:iam::153891904029:role/AWSReservedSSO_AdministratorAccess_8a8c615329b64b23"
+      # "arn:aws:iam::123456789012:role/myeksadminrole"
+      roleArn: ${data.aws_eks_iam_default_admin}
     nodes:
       count: 1
       instanceType: t3.medium

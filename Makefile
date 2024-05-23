@@ -234,6 +234,13 @@ providerconfig-e2e:
 	TARGET_CROSSPLANE_VERSION="1.15.2" \
 		$(MAKE) -C e2e/providerconfig-aws-e2e-test e2e
 
+providerconfig-e2e-nopublish:
+	AWS_FAMILY_PACKAGE_IMAGE="$(XPKG_REG_ORGS)/provider-family-aws:$(VERSION)" \
+	AWS_EC2_PACKAGE_IMAGE="$(XPKG_REG_ORGS)/provider-aws-ec2:$(VERSION)" \
+	AWS_RDS_PACKAGE_IMAGE="$(XPKG_REG_ORGS)/provider-aws-rds:$(VERSION)" \
+	TARGET_CROSSPLANE_VERSION="1.15.2" \
+		$(MAKE) -C e2e/providerconfig-aws-e2e-test e2e
+
 uptest-local:
 	@$(WARN) "this target is deprecated, please use 'make uptest' instead"
 

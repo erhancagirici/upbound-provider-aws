@@ -80,11 +80,16 @@ e2e-lite: build controlplane.up local.xpkg.deploy.configuration.$(PROJECT_NAME)
 uptest-e2e: $(UPTEST) $(KUBECTL) $(KUTTL) $(YQ)
 	@$(INFO) dump e2e claim:
 	@mkdir -p "_output"
-	$(YQ) '(.spec.parameters.targetClusterParameters.provider.familyPackage = env(AWS_FAMILY_PACKAGE_IMAGE)) | \
+	@$(YQ) '(.spec.parameters.targetClusterParameters.provider.familyPackage = env(AWS_FAMILY_PACKAGE_IMAGE)) | \
 		   (.spec.parameters.targetClusterParameters.provider.ec2Package = env(AWS_EC2_PACKAGE_IMAGE)) | \
 		   (.spec.parameters.targetClusterParameters.provider.rdsPackage = env(AWS_RDS_PACKAGE_IMAGE)) | \
 		   (.spec.parameters.targetClusterParameters.crossplaneVersion = env(TARGET_CROSSPLANE_VERSION)) ' \
 				package/examples/e2etestcluster-claim.yaml > '_output/e2etestcluster-claim.yaml'
+	if [ -n "${AWS_EKS_IAM_DEFAULT_ADMIN_ROLE}" ]; \
+	then \
+  		echo "overriding EKS cluster default IAM role from environment";\
+  		$(YQ) -i '(.spec.parameters.iam.roleArn = env(AWS_EKS_IAM_DEFAULT_ADMIN_ROLE)) ' _output/e2etestcluster-claim.yaml;\
+  	fi
 	@cat _output/e2etestcluster-claim.yaml
 	@$(INFO) running automated tests
 	@KUBECTL=$(KUBECTL) KUTTL=$(KUTTL) CROSSPLANE_NAMESPACE=$(CROSSPLANE_NAMESPACE) $(UPTEST) e2e _output/e2etestcluster-claim.yaml --data-source="${UPTEST_DATASOURCE_PATH}" --setup-script=test/setup.sh --default-timeout=5400 || $(FAIL)
