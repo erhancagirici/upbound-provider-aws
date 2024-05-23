@@ -57,7 +57,7 @@ spec:
     version: "1.28" # EKS cluster k8s version
     iam:
       # replace with your custom roleArn that will administer the EKS cluster:
-      roleArn: "arn:aws:iam::153891904029:role/AWSReservedSSO_AdministratorAccess_8a8c615329b64b23"
+      roleArn: "arn:aws:iam::123456789012:role/mydefaulteksadminrole"
     nodes: # eks nodes configuration
       count: 1  
       instanceType: t3.medium
@@ -127,6 +127,7 @@ The make target expects the following environment variables to be set:
 - `AWS_FAMILY_PACKAGE_IMAGE`: The package URL for `provider-family-aws` 
 - `AWS_EC2_PACKAGE_IMAGE`: The package URL for `provider-aws-ec2`
 - `AWS_RDS_PACKAGE_IMAGE`: The package URL for `provider-aws-rds`
+- `AWS_EKS_IAM_DEFAULT_ADMIN_ROLE`: the ARN of an existing IAM role. This will be assigned as the E2E test EKS cluster default admin
 - `TARGET_CROSSPLANE_VERSION`: The target crossplane version to be deployed into the testing cluster
 - `UPTEST_CLOUD_CREDENTIALS`: The AWS credentials for the AWS account that the e2e tests will run on. Should be in the format of AWS CLI INI config. 
 
@@ -143,6 +144,7 @@ aws_secret_access_key = your-aws-secret-access-key
 export AWS_FAMILY_PACKAGE_IMAGE="xpkg.upbound.io/upbound/provider-family-aws:1.4.0"
 export AWS_EC2_PACKAGE_IMAGE="xpkg.upbound.io/upbound/provider-aws-ec2:1.4.0"
 export AWS_RDS_PACKAGE_IMAGE="xpkg.upbound.io/upbound/provider-aws-rds:1.4.0"
+export AWS_EKS_IAM_DEFAULT_ADMIN_ROLE="arn:aws:iam::123456789012:role/mydefaulteksadminrole"
 export TARGET_CROSSPLANE_VERSION="1.15.2"
 export UPTEST_CLOUD_CREDENTIALS="$(cat my-aws-creds.txt)"
 # from repo root
@@ -162,10 +164,12 @@ The make target expects
 - `XPKG_REG_ORGS`: the target OCI repository URL for provider images to be published
 - `VERSION`: the version tag of the published provider images
 - `UPTEST_CLOUD_CREDENTIALS`: The AWS credentials for the AWS account that the e2e tests will run on. Should be in the format of AWS CLI INI config.
+- `AWS_EKS_IAM_DEFAULT_ADMIN_ROLE`: the ARN of an existing IAM role. This will be assigned as the E2E test EKS cluster default admin
 
 example usage:
 ```shell
 export UPTEST_CLOUD_CREDENTIALS="$(cat my-aws-creds.txt)"
+export AWS_EKS_IAM_DEFAULT_ADMIN_ROLE="arn:aws:iam::123456789012:role/mydefaulteksadminrole"
 # from repo root
 make VERSION=v1.4.0-testversion XPKG_REG_ORGS=index.docker.io/erhancag providerconfig-e2e
 ```
